@@ -167,15 +167,15 @@ class FileSpreadSpectrumSteganography:
             return False
     
     def extract_file(self, stego_audio_path: str, 
-                    output_dir: str = ".",
-                    original_audio_path: Optional[str] = None) -> bool:
+                    output_dir: str,
+                    original_audio_path: str) -> bool:
         """
         Extract hidden file from stego audio
         
         Args:
             stego_audio_path: Path to stego WAV file
             output_dir: Directory to save extracted file
-            original_audio_path: Path to original WAV file (optional)
+            original_audio_path: Path to original WAV file (required)
             
         Returns:
             True if successful, False otherwise
@@ -184,10 +184,8 @@ class FileSpreadSpectrumSteganography:
             # Load stego audio
             stego_audio, sr = self.load_wav(stego_audio_path)
             
-            # Load original audio if provided
-            original_audio = None
-            if original_audio_path:
-                original_audio, _ = self.load_wav(original_audio_path)
+            # Load original audio (required)
+            original_audio, _ = self.load_wav(original_audio_path)
             
             print("🔍 Extracting hidden file...")
             
@@ -249,14 +247,14 @@ def main():
         print()
         print("USAGE:")
         print("  Hide file:    python file_steganography.py hide <host_audio.wav> <file_to_hide> [output.wav]")
-        print("  Extract file: python file_steganography.py extract <stego_audio.wav> [output_dir] [original_audio.wav]")
+        print("  Extract file: python file_steganography.py extract <stego_audio.wav> <output_dir> <original_audio.wav>")
         print("  File info:    python file_steganography.py info <file_path>")
         print("  Capacity:     python file_steganography.py capacity <host_audio.wav> [chip_rate]")
         print()
         print("EXAMPLES:")
         print("  python file_steganography.py hide host.wav secret_image.jpg stego.wav")
         print("  python file_steganography.py hide host.wav document.pdf")
-        print("  python file_steganography.py extract stego.wav ./extracted/")
+        print("  python file_steganography.py extract stego.wav ./extracted/ host.wav")
         print("  python file_steganography.py capacity host.wav")
         print("  python file_steganography.py info myfile.jpg")
         return
@@ -348,19 +346,23 @@ def main():
             print(f"❌ Error: {e}")
     
     elif command == "extract":
-        if len(sys.argv) < 3:
-            print("Usage: python file_steganography.py extract <stego_audio.wav> [output_dir] [original_audio.wav]")
+        if len(sys.argv) < 5:
+            print("Usage: python file_steganography.py extract <stego_audio.wav> <output_dir> <original_audio.wav>")
             return
             
         stego_path = sys.argv[2]
-        output_dir = sys.argv[3] if len(sys.argv) > 3 else "."
-        original_path = sys.argv[4] if len(sys.argv) > 4 else None
+        output_dir = sys.argv[3]
+        original_path = sys.argv[4]
         
         print("EXTRACTING HIDDEN FILE")
         print("="*30)
         
         if not os.path.exists(stego_path):
             print(f"❌ Stego audio not found: {stego_path}")
+            return
+        
+        if not os.path.exists(original_path):
+            print(f"❌ Original audio not found: {original_path}")
             return
         
         # Create output directory
