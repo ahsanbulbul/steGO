@@ -1,6 +1,6 @@
 __pycache__
 *.wav
-data/
+data/*
 extracted/
 !data/sample_text.txt
-!data/text.txt
+!data/secret.py
