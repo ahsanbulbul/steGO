@@ -4,3 +4,4 @@ data/*
 extracted/
 !data/sample_text.txt
 !data/secret.py
+/stego_venv
