@@ -1,0 +1,5 @@
+This is a secret message that will be hidden in the audio file using spread spectrum steganography.
+The technique spreads the data across the frequency spectrum making it robust to compression.
+This message contains multiple lines to test the hiding and extraction capabilities.
+Secret data: 12345-ABCDE-67890-FGHIJ
+End of secret message.
