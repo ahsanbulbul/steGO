@@ -7,17 +7,11 @@ from typing import Tuple, Optional
 
 class SpreadSpectrumCore:
     """
-    Core Spread Spectrum Steganography Engine
-    
-    Contains only the essential spread spectrum algorithms without I/O dependencies.
-    This class handles the mathematical operations for spreading, despreading,
-    and data preparation/recovery.
+    Core class for spread spectrum steganography in audio files.
     """
     
-    def __init__(self, 
-                 chip_rate: int = 64,
-                 power_ratio: float = 0.01,
-                 spreading_seed: int = 162):
+    def __init__(self, chip_rate: int = 64, power_ratio: float = 0.01, spreading_seed: int = 162):
+        
         """
         Initialize the spread spectrum core
         
@@ -203,8 +197,7 @@ class SpreadSpectrumCore:
         
         return stego_audio
     
-    def hide_data_in_audio(self, host_audio: np.ndarray, file_data: bytes, 
-                          filename: str, mime_type: str) -> Tuple[np.ndarray, dict]:
+    def hide_data_in_audio(self, host_audio: np.ndarray, file_data: bytes, filename: str, mime_type: str) -> Tuple[np.ndarray, dict]:
         """
         Core function to hide file data in audio using spread spectrum
         
