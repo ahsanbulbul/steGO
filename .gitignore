@@ -1,3 +1,6 @@
 __pycache__
 *.wav
-
+data/
+extracted/
+!data/sample_text.txt
+!data/text.txt
